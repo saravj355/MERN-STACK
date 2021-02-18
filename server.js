@@ -19,7 +19,7 @@ async function init() {
     await assertDatabaseConnection();
 
     app.listen(process.env.PORT, () => {
-        console.log(`Server on port http://localhost:${process.env.PORT}`);
+        console.log(`Server started on port http://localhost:${process.env.PORT}`);
     });
 }
 
