@@ -6,7 +6,7 @@
   "author": "Sara Valle",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon backend/server.js"
   },
   "devDependencies": {
     "eslint": "^7.20.0",
