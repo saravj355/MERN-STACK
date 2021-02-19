@@ -1,17 +1,22 @@
 require('dotenv').config();
 const express = require('express');
-const database = require('./db/');
+const database = require('./db');
 const items = require('./routes/api/items');
 
 const app = express();
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server started on port http://localhost:${process.env.PORT}`);
-});
-
+//bodyParser Middleware
 app.use(express.json());
+
+//routes
 app.use('/api/items', items);
 
+async function init() {
+    await database.assertDatabaseConnection();
 
+    app.listen(process.env.PORT, () => {
+        console.log(`Server started on port http://localhost:${process.env.PORT}`);
+    });
+}
 
-database.init();
+init();
