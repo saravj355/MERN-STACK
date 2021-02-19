@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 
 //Create Schema
-const itemSchema = new Schema({
-    name:{
+const ItemSchema = new Schema({
+    name: {
         type: String,
         required: true
     },
     date: {
         type: Date,
-        default:Date.now
+        default: Date.now
     }
 });
 
-module.exports = item = mongoose.model('item', itemSchema);
+module.exports = Item = mongoose.model('item', ItemSchema);

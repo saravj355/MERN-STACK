@@ -1,17 +1,16 @@
-const {config} = require('../config');
-const mongoose = require('mongoose');
+const database = require('./connection');
 
-const uri = `mongodb+srv://${config.db.username}:${config.db.password}@cluster0.rhelx.mongodb.net/${config.db.name}?retryWrites=true&w=majority`;
-
-function databaseConnection(){
-    mongoose
-        .connect(uri, {useUnifiedTopology: true, useNewUrlParser:true})
-        .then(() => console.log('Database connection successfull'))
-        .catch(err => console.log('Error connecting to database', err));
+async function assertDatabaseConnection() {
+    console.log('Checking database connection...');
+    try {
+        await database.connection();
+    } catch (err) {
+        console.log(err);
+    }
 }
 
-module.exports = { databaseConnection };
+async function init() {
+    await assertDatabaseConnection();
+}
 
-
-
-
+module.exports = {init};

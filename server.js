@@ -1,31 +1,17 @@
 require('dotenv').config();
-const database = require('./db');
 const express = require('express');
+const database = require('./db/');
+const items = require('./routes/api/items');
 
 const app = express();
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on port http://localhost:${process.env.PORT}`);
+});
+
 app.use(express.json());
-app.get('/', (req, res) => res.send('Welcome to shopping list') );
-
-async function assertDatabaseConnection() {
-    console.log('Checking database connection...');
-    try {
-        await database.databaseConnection();
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-async function init() {
-    await assertDatabaseConnection();
-
-    app.listen(process.env.PORT, () => {
-        console.log(`Server started on port http://localhost:${process.env.PORT}`);
-    });
-}
-
-init();
+app.use('/api/items', items);
 
 
 
-
-
+database.init();
