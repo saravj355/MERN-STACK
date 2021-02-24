@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const httpResponse = require('../../services/httpResponse');
 const itemService = require('../../services/itemService');
 
 // route: GET api/items
@@ -8,7 +7,7 @@ router.get('/', async (req, res) => {
         const items = await itemService.find().sort({date: -1});
         return res.send(items);
     } catch(err){
-        httpResponse.error(res, 'failed finding items');
+        return res.status(404);
     }
 });
 
@@ -18,7 +17,7 @@ router.post('/', async (req, res) => {
         const item = await itemService.create(req);
         return res.json(item);
     } catch(err){
-        httpResponse.error(res, 'item creation failed', err);
+        return res.status(404);
     }
 });
 
@@ -27,10 +26,10 @@ router.delete('/:id', async (req, res) => {
     try {
         const itemId = req.params.id;
         const item = await itemService.findById(itemId);
-		
+
         
     } catch(err){
-        httpResponse.error(res, 'item deletion failed', err);
+        return res.status(404);
     }
 });
 
