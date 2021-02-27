@@ -9,12 +9,16 @@ function create(item){
     return newItem.save();
 }
 
-function deleteById(item){
-	
+async function deleteById(id){
+    try{
+        const foundItem = await findById(id);
+    }catch(err){
+        throw new Error(err, '');
+    }
 }
 
-function findById(id){
-    return Item.findById(id);
+async function findById(id){
+    return await Item.findById(id);
 }
 
 module.exports = {

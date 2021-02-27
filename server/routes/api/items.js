@@ -5,7 +5,7 @@ const itemService = require('../../services/itemService');
 router.get('/', async (req, res) => {
     try {
         const items = await itemService.find().sort({date: -1});
-        return res.send(items);
+        res.send(items);
     } catch(err){
         return res.status(404);
     }
@@ -14,8 +14,8 @@ router.get('/', async (req, res) => {
 // route: POST api/items
 router.post('/', async (req, res) => {
     try {
-        const item = await itemService.create(req);
-        return res.json(item);
+        const item = await itemService.create(req.body);
+        return res.send(item);
     } catch(err){
         return res.status(404);
     }
@@ -25,11 +25,12 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const itemId = req.params.id;
-        const item = await itemService.findById(itemId);
+        await itemService.deleteById(itemId);
 
-        
+        return res.send({success: true});
     } catch(err){
-        return res.status(404);
+        console.log(err);
+        return res.status(404).send({success: false});
     }
 });
 
