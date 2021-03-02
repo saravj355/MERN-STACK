@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const _ = require('lodash');
 const itemService = require('../../services/itemService');
 
 // route: GET api/items
@@ -14,10 +15,16 @@ router.get('/', async (req, res) => {
 // route: POST api/items
 router.post('/', async (req, res) => {
     try {
+        if(_.isEmpty(req.body)){
+            throw new Error('The object is empty');
+        }
+
         const item = await itemService.create(req.body);
+
         return res.send(item);
     } catch(err){
-        return res.status(404);
+        return res.status(404)
+            .send({success: false, reason:err.message});
     }
 });
 
