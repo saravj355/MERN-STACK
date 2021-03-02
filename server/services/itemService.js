@@ -10,15 +10,23 @@ function create(item){
 }
 
 async function deleteById(id){
-    try{
+    try {
         const foundItem = await findById(id);
-    }catch(err){
-        throw new Error(err, '');
-    }
+        return await foundItem.delete();
+
+    } catch(err){
+        throw new Error(err);
+    }  
 }
 
 async function findById(id){
-    return await Item.findById(id);
+    const foundItem = await Item.findById(id);
+
+    if(!foundItem){
+        throw new Error('The item doesnt exists');
+    }
+
+    return foundItem;
 }
 
 module.exports = {

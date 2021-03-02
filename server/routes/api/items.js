@@ -22,15 +22,21 @@ router.post('/', async (req, res) => {
 });
 
 // route: DELETE api/items/:id
-router.delete('/:id', async (req, res) => {
-    try {
+router.delete('/:id?', async (req, res) => {
+    try {		
         const itemId = req.params.id;
+
+        if(!itemId){
+            throw new Error('No id provided');
+        }
+
         await itemService.deleteById(itemId);
 
         return res.send({success: true});
     } catch(err){
-        console.log(err);
-        return res.status(404).send({success: false});
+        return res
+            .status(404)
+            .send({success: false, reason:err.message});
     }
 });
 
