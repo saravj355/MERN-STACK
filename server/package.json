@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "server.js",
   "license": "MIT",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
   "devDependencies": {
     "eslint": "^7.20.0",
     "eslint-config-standard": "^16.0.2",
