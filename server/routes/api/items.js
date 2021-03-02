@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
         if(_.isEmpty(req.body)){
             throw new Error('The object is empty');
         }
-
+		
         const item = await itemService.create(req.body);
 
         return res.send(item);
